@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app >
     <v-navigation-drawer
       v-model="drawer"
       :mini-variant="miniVariant"
@@ -30,32 +30,23 @@
       app
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn
-        icon
-        @click.stop="miniVariant = !miniVariant"
-      >
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="clipped = !clipped"
-      >
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn
-        icon
-        @click.stop="fixed = !fixed"
-      >
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
+      
+      <v-toolbar class="dark">
+        <v-toolbar-title>
+          <router-link to="/" tag="span" style="cursor: pointer"
+            >DevMeetup</router-link
+          >
+        </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <v-toolbar-items class="hidden-xs-only">
+          <v-btn v-for="item in items" :key="item" router :to="item.to">
+            <v-icon left>{{ item.icon }}</v-icon>
+            {{ item.title }}
+          </v-btn>
+        </v-toolbar-items>
+      </v-toolbar>
+    
       <v-toolbar-title v-text="title" />
-      <v-spacer />
-      <v-btn
-        icon
-        @click.stop="rightDrawer = !rightDrawer"
-      >
-        <v-icon>mdi-menu</v-icon>
-      </v-btn>
     </v-app-bar>
     <v-content>
       <v-container>
@@ -83,7 +74,7 @@
       :fixed="fixed"
       app
     >
-      <span>&copy; 2019</span>
+      <span>&copy; 2020</span>
     </v-footer>
   </v-app>
 </template>
@@ -97,20 +88,34 @@ export default {
       fixed: false,
       items: [
         {
-          icon: 'mdi-apps',
-          title: 'Welcome',
-          to: '/'
+          icon: "mdi-account-supervisor-outline",
+          title: "View Meetups",
+          to: '/Meetup/meetups'
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire'
-        }
+          icon: "mdi-map-marker",
+          title: "Organize Meetup",
+          to: '/Meetup/CreateMetups'
+        },
+        {
+          icon: "mdi-account ",
+          title: "Profile",
+          to: '/User/profile'
+        },
+        {
+          icon: "mdi-face",
+          title: "Sign up",
+          to: '/User/signup'
+        },
+        {
+          icon: "mdi-lock-open-variant",
+          title: "Sign in",
+          to: '/User/signin'
+        },
       ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Vuetify.js'
     }
   }
 }
